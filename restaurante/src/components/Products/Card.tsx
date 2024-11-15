@@ -30,7 +30,7 @@ export default function ProductCard({ product }: { product: Product }) {
           color="blue"
           fullWidth
           className="mt-4 rounded-lg py-3"
-          onClick={() => console.log("Comprar clicked")}
+          onClick={() => window.location.href = `/product/${product.id}`}
         >
           Comprar
         </Button>
