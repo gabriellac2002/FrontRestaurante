@@ -1,8 +1,16 @@
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import "@mantine/core/styles.css";
+
+import { MantineProvider } from "@mantine/core";
+
 function App() {
   return (
-    <div className="bg-orange-600">
-      <p>oi</p>
-    </div>
+    <MantineProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </MantineProvider>
   );
 }
 
