@@ -11,6 +11,8 @@ export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [opened, { open, close }] = useDisclosure(false);
+  const [isCreate, { open: openCreate, close: closeCreate }] =
+    useDisclosure(false);
 
   useEffect(() => {
     if (id) {
@@ -28,7 +30,14 @@ export default function ProductPage() {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p>Price: ${product.price.toFixed(2)}</p>
-      <button onClick={open}>Edit</button>
+      <button
+        onClick={() => {
+          open();
+        }}
+      >
+        Edit
+      </button>
+      <button onClick={openCreate}>Create</button>
 
       <Drawer
         offset={8}
@@ -39,6 +48,16 @@ export default function ProductPage() {
         position="right"
       >
         <FormProduct product={product} onSave={close} />
+      </Drawer>
+      <Drawer
+        offset={8}
+        radius="md"
+        opened={isCreate}
+        onClose={close}
+        title="Authentication"
+        position="right"
+      >
+        <FormProduct onSave={closeCreate} />
       </Drawer>
     </div>
   );
