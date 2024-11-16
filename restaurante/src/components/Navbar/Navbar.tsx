@@ -57,6 +57,16 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
+            <li>
+              <Link to="/products" className="text-white hover:text-yellow-300">
+                Cadastrar
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="text-white hover:text-yellow-300">
+                Produtos
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
