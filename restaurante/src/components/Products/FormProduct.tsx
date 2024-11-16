@@ -70,6 +70,19 @@ const FormProduct: React.FC<FormProductProps> = ({
         </div>
         <div>
           <label
+            htmlFor="price"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Categoria:
+          </label>
+          <Input
+            id="category"
+            placeholder="Digite a categoria do produto"
+            {...form.getInputProps("category")}
+          />
+        </div>
+        <div>
+          <label
             htmlFor="description"
             className="block text-sm font-medium text-gray-700 mb-1"
           >

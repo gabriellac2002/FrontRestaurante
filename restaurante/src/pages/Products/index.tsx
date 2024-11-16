@@ -2,16 +2,19 @@ import { Table, Button, Drawer } from "@mantine/core";
 import Navbar from "../../components/Navbar/Navbar";
 import { Product } from "../../../Types/types";
 import { useEffect, useState } from "react";
-import { getAllProducts, updateProduct } from "../../../services/Products";
+import { createProduct, getAllProducts, updateProduct } from "../../../services/Products";
 import { MdDelete, MdEdit } from "react-icons/md";
 import FormProduct from "../../components/Products/FormProduct";
 import { useDisclosure } from "@mantine/hooks";
+import { IoAddSharp } from "react-icons/io5";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [product, setProduct] = useState<Product>();
 
   const [opened, { open, close }] = useDisclosure(false);
+  const [openedCreate, { open: openCreate, close: closeCreate }] =
+    useDisclosure(false);
 
   useEffect(() => {
     getAllProducts().then((products) => setProducts(products));
@@ -62,6 +65,16 @@ export default function Products() {
       });
   };
 
+  const handleCreate = (newProduct: Product) => {   
+    createProduct(newProduct).then((product) => {
+      setProducts((prevProducts) => [...prevProducts, product]);
+      closeCreate();
+    }).catch((error) => {
+        console.error("Error creating product:", error);
+        alert("Erro ao criar o produto");
+    });
+  };
+
   return (
     <div className="bg-yellow-50 min-h-screen">
       <Navbar />
@@ -70,6 +83,17 @@ export default function Products() {
         <h1 className="text-4xl font-bold text-yellow-700 mb-6 text-center">
           Lista de Produtos
         </h1>
+
+        <div className="flex justify-end mb-4">
+          <Button
+            color="yellow"
+            radius="xl"
+            size="md"
+            onClick={() => openCreate()}
+          >
+            <IoAddSharp />
+          </Button>
+        </div>
 
         <div className="bg-white p-4 rounded-lg shadow-md">
           <Table stickyHeader stickyHeaderOffset={60}>
@@ -84,17 +108,6 @@ export default function Products() {
             </Table.Thead>
             <Table.Tbody>{rows}</Table.Tbody>
           </Table>
-
-          <div className="mt-4 flex justify-end">
-            <Button
-              color="yellow"
-              radius="xl"
-              size="md"
-              onClick={() => alert("Adicionar novo produto")}
-            >
-              Adicionar Produto
-            </Button>
-          </div>
         </div>
       </div>
 
@@ -111,6 +124,16 @@ export default function Products() {
           onSave={handleSave}
           close={() => close()}
         />
+      </Drawer>
+      <Drawer
+        offset={8}
+        radius="md"
+        opened={openedCreate}
+        onClose={closeCreate}
+        title="Criar Produto"
+        position="right"
+      >
+        <FormProduct onSave={handleCreate} close={() => close()} />
       </Drawer>
     </div>
   );

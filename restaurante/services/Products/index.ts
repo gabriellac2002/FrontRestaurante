@@ -39,3 +39,18 @@ export const updateProduct = async (product: Product) => {
         throw error;
     }
 }
+
+export const createProduct = async (product: Product) => {
+    try {
+        const response = await axios.post(PRODUCTS_URL, product);
+        return response.data;
+    } catch (error) {
+        console.error("Error creating product:", error);
+        if (error instanceof Error) {
+            alert(`Error creating product: ${error.message}`);
+        } else {
+            alert('Error creating product');
+        }
+        throw error;
+    }
+}
