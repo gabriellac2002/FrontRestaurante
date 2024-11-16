@@ -59,8 +59,14 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-6">
               Por que eles amam nossa comida?
             </h2>
-            <div className="flex flex-wrap justify-center gap-8">
-              <Card shadow="sm" padding="lg" radius="md" withBorder>
+            <div className="flex flex-col sm:flex-row justify-center gap-8">
+              <Card
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                className="w-full"
+              >
                 <Card.Section>
                   <div className="flex justify-center items-center p-4 bg-red-100">
                     <BiSolidHappyHeartEyes size={48} className="text-red-600" />
@@ -73,7 +79,13 @@ export default function Home() {
                   Trabalhamos para proporcionar a melhor experiência possível.
                 </Text>
               </Card>
-              <Card shadow="sm" padding="lg" radius="md" withBorder>
+              <Card
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                className="w-full"
+              >
                 <Card.Section>
                   <div className="flex justify-center items-center p-4 bg-red-100">
                     <SiIfood size={48} className="text-red-600" />
@@ -86,7 +98,13 @@ export default function Home() {
                   Receba sua comida quente e fresquinha em minutos.
                 </Text>
               </Card>
-              <Card shadow="sm" padding="lg" radius="md" withBorder>
+              <Card
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                className="w-full"
+              >
                 <Card.Section>
                   <div className="flex justify-center items-center p-4 bg-red-100">
                     <MdFastfood size={48} className="text-red-600" />
@@ -109,11 +127,11 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-6">Depoimentos</h2>
             <div className="flex flex-col md:flex-row justify-center gap-8">
               {opinionsData.map((opinion, index) => (
-              <Opinions
-                key={index}
-                opinion={opinion.opinion}
-                user={opinion.user}
-              />
+                <Opinions
+                  key={index}
+                  opinion={opinion.opinion}
+                  user={opinion.user}
+                />
               ))}
             </div>
           </div>

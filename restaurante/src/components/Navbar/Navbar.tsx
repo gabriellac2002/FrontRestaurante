@@ -10,12 +10,12 @@ export default function Navbar() {
 
   return (
     <nav className="bg-yellow-500 dark:bg-yellow-600 shadow-lg">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex flex-row items-center gap-1">
           <img
-            src="public\assets\logo.png"
+            src="../../assets/logo.png"
             className="h-14 w-14"
-            alt="Crazy Chicken Logo"
+            alt="Falaê Delivery"
           />
           <span className="self-center text-3xl font-bold text-white">
             Falaê Delivery
