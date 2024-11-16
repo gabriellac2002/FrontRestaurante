@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="bg-yellow-50">
       <Navbar />
-      <div className="">
+      <div>
         <section className="bg-yellow-400 text-white py-10">
           <div className="container mx-auto flex flex-col items-center text-center">
             <h1 className="text-4xl font-bold">
