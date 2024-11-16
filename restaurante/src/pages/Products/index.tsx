@@ -1,12 +1,13 @@
-import { Table, Button, Drawer } from "@mantine/core";
+import { Table, Button, Drawer, Modal } from "@mantine/core";
 import Navbar from "../../components/Navbar/Navbar";
 import { Product } from "../../../Types/types";
 import { useEffect, useState } from "react";
-import { createProduct, getAllProducts, updateProduct } from "../../../services/Products";
+import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../../../services/Products";
 import { MdDelete, MdEdit } from "react-icons/md";
 import FormProduct from "../../components/Products/FormProduct";
 import { useDisclosure } from "@mantine/hooks";
 import { IoAddSharp } from "react-icons/io5";
+
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,6 +15,8 @@ export default function Products() {
 
   const [opened, { open, close }] = useDisclosure(false);
   const [openedCreate, { open: openCreate, close: closeCreate }] =
+    useDisclosure(false);
+  const [openedModal, { open: openModal, close: closeModal }] =
     useDisclosure(false);
 
   useEffect(() => {
@@ -41,7 +44,10 @@ export default function Products() {
         <Button
           variant="light"
           color="red"
-          onClick={() => alert(`Deletar ${element.name}`)}
+          onClick={() => {
+            setProduct(element);
+            openModal();
+          }}
         >
           <MdDelete />
         </Button>
@@ -72,6 +78,18 @@ export default function Products() {
     }).catch((error) => {
         console.error("Error creating product:", error);
         alert("Erro ao criar o produto");
+    });
+  };
+
+  const handleDelete = () => {
+    deleteProduct(product?.id || "").then(() => {
+        setProducts((prevProducts) =>
+          prevProducts.filter((element) => element.id !== product?.id)
+        );
+        closeModal();
+    }).catch((error) => {
+        console.error("Error deleting product:", error);
+        alert("Erro ao deletar o produto");
     });
   };
 
@@ -135,6 +153,22 @@ export default function Products() {
       >
         <FormProduct onSave={handleCreate} close={() => close()} />
       </Drawer>
+
+      <Modal
+        opened={openedModal}
+        onClose={closeModal}
+        title="Confirmar Deleção"
+      >
+        <div>Tem certeza que deseja deletar este produto?</div>
+        <div className="flex justify-end mt-4">
+          <Button variant="outline" color="gray" onClick={closeModal}>
+            Cancelar
+          </Button>
+          <Button color="red" onClick={handleDelete} className="ml-2">
+            Deletar
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }

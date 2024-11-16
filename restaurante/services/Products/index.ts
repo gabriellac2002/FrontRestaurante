@@ -54,3 +54,18 @@ export const createProduct = async (product: Product) => {
         throw error;
     }
 }
+
+export const deleteProduct = async (id: string) => {
+    try {
+        const response = await axios.delete(`${PRODUCTS_URL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error deleting product with id ${id}:`, error);
+        if (error instanceof Error) {
+            alert(`Error deleting product: ${error.message}`);
+        } else {
+            alert('Error deleting product');
+        }
+        throw error;
+    }
+}
