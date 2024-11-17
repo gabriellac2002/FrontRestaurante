@@ -8,6 +8,7 @@ import Products from "./pages/Products";
 import { CartProvider } from "./contexts/CartContext";
 import Cart from "./pages/Cart";
 import Register from "./pages/SingUp";
+import Login from "./pages/SingIn";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/singUp" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </MantineProvider>
     </CartProvider>

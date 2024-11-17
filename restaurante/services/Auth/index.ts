@@ -2,11 +2,12 @@ import axios from "axios";
 import { API_URL } from "../utils";
 import { User } from "../../Types/types";
 
-const PRODUCTS_URL = `${API_URL}auth/`;
+const USER_URL = `${API_URL}auth/`;
 
 export const login = async (email: string) => {
+  const url = `${USER_URL}login`;
   try {
-    const response = await axios.post(PRODUCTS_URL, { email });
+    const response = await axios.post(url, { email });
     return response.data;
   } catch (error) {
     console.error("Error logging in:", error);
@@ -15,7 +16,7 @@ export const login = async (email: string) => {
 };
 
 export const register = async (user: User) => {
-  const url = `${PRODUCTS_URL}register`;
+  const url = `${USER_URL}register`;
   try {
     const response = await axios.post(url, user);
 

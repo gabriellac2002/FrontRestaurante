@@ -4,6 +4,7 @@ import { getProductById } from "../../../services/Products";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { useCart } from "../../contexts/CartContext";
+import { MdFastfood } from "react-icons/md";
 
 export default function ProductPage() {
   const productId = window.location.pathname.split("/").pop();
@@ -27,16 +28,24 @@ export default function ProductPage() {
 
   return (
     <div>
-      <div className="bg-yellow-50 min-h-screen">
+      <div className="bg-yellow-50">
         <Navbar />
-        <section className="container mx-auto py-10 px-3">
+        <section className="container mx-auto py-10 px-3 min-h-screen">
           <div className="flex flex-col lg:flex-row gap-10 items-center">
             <div className="flex-shrink-0 w-full lg:w-1/2">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="rounded-lg shadow-lg"
-              />
+              {product.image ? (
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="rounded-lg shadow-lg"
+                />
+              ) : (
+                <div className="rounded-full bg-gray-200 w-48 h-48 flex items-center justify-center">
+                  <span className="text-gray-500 text-6xl">
+                    <MdFastfood />
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="w-full lg:w-1/2 text-gray-800">
@@ -55,6 +64,7 @@ export default function ProductPage() {
                 onClick={() => {
                   addToCart(product);
                   alert(`${product.name} foi adicionado ao carrinho!`);
+                  window.location.href = "/cart";
                 }}
               >
                 Comprar

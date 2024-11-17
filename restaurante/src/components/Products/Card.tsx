@@ -1,15 +1,24 @@
 import { Badge, Button, Image, Text } from "@mantine/core";
 import { Product } from "../../../Types/types";
+import { MdFastfood } from "react-icons/md";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
     <div className="max-w-sm rounded-lg shadow-md bg-white border border-gray-200 overflow-hidden">
       <div className="relative">
-        <Image
-          src={product.image}
-          alt={product.name}
-          className="w-full h-48 object-cover"
-        />
+        {product.image ? (
+          <Image
+            src={product.image}
+            alt={product.name}
+            className="w-full h-48 object-cover"
+          />
+        ) : (
+          <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+            <span className="text-gray-500 text-6xl">
+              <MdFastfood />
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="p-4">
@@ -30,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
           color="blue"
           fullWidth
           className="mt-4 rounded-lg py-3"
-          onClick={() => window.location.href = `/product/${product.id}`}
+          onClick={() => (window.location.href = `/product/${product.id}`)}
         >
           Ver detalhes
         </Button>
