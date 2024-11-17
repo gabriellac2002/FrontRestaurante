@@ -1,9 +1,33 @@
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { useCart } from "../../contexts/CartContext";
+import { createOrder } from "../../../services/Order/index";
 
 export default function Cart() {
   const { cart, removeFromCart, updateQuantity, user } = useCart();
+
+  const handleCreateOrder = () => {
+    if (user) {
+      const orderData = {
+        userId: user.id,
+        products: cart.map((product) => ({
+          productId: product.id,
+          quantity: product.quantity,
+        })),
+      };
+      createOrder(orderData.userId, orderData.products)
+        .then(() => {
+          cart.forEach((product) => removeFromCart(product.id));
+          alert("Pedido criado com sucesso!");
+        })
+        .catch((error) => {
+          alert("Algo deu errado ao criar o pedido. Por favor, tente novamente.");
+          console.error("Error creating order:", error);
+        });
+    } else {
+      alert("Por favor, faça login para finalizar o pedido.");
+    }
+  };
 
   return (
     <div className="bg-yellow-50 min-h-screen">
@@ -85,7 +109,7 @@ export default function Cart() {
                   })}
               </p>
             </div>
-            <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium self-center mt-6">
+            <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium self-center mt-6" onClick={handleCreateOrder}>
               Finalizar Pedido
             </button>
             {user && (
