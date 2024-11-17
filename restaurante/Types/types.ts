@@ -7,3 +7,12 @@ export type Product = {
   image: string;
   createdAt: string;
 };
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  address: string;
+  phone: string;
+  createdAt: string;
+};

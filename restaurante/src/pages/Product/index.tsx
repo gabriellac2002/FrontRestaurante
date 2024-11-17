@@ -3,11 +3,13 @@ import { Product } from "../../../Types/types";
 import { getProductById } from "../../../services/Products";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import { useCart } from "../../contexts/CartContext";
 
 export default function ProductPage() {
   const productId = window.location.pathname.split("/").pop();
-  console.log(productId);
   const [product, setProduct] = useState<Product | null>(null);
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (productId) {
@@ -43,9 +45,18 @@ export default function ProductPage() {
                 {product.description}
               </p>
               <p className="text-3xl font-bold text-yellow-600 mb-6">
-                {product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                {product.price.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
               </p>
-              <button className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium">
+              <button
+                className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium"
+                onClick={() => {
+                  addToCart(product);
+                  alert(`${product.name} foi adicionado ao carrinho!`);
+                }}
+              >
                 Comprar
               </button>
             </div>

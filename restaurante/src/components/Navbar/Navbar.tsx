@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -48,7 +49,7 @@ export default function Navbar() {
         <div
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } w-full md:block md:w-auto`}
+          } w-full md:block md:w-auto items-center justify-center`}
           id="navbar-dropdown"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-yellow-100 rounded-lg bg-yellow-500 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
@@ -63,8 +64,8 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/" className="text-white hover:text-yellow-300">
-                Produtos
+              <Link to="/cart" className="text-white hover:text-yellow-300">
+                <FaShoppingCart />
               </Link>
             </li>
           </ul>
