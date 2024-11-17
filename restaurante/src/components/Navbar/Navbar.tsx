@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCart } from "../../contexts/CartContext";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useCart();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -60,14 +61,35 @@ export default function Navbar() {
             </li>
             <li>
               <Link to="/products" className="text-white hover:text-yellow-300">
-                Cadastrar
+                Produtos
               </Link>
             </li>
+
             <li>
               <Link to="/cart" className="text-white hover:text-yellow-300">
-                <FaShoppingCart />
+                Carrinho
               </Link>
             </li>
+            {!user && (
+              <>
+                <li>
+                  <Link
+                    to="/login"
+                    className="text-white hover:text-yellow-300"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/singUp"
+                    className="text-white hover:text-yellow-300"
+                  >
+                    Cadastrar
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
