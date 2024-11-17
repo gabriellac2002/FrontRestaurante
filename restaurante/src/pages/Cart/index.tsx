@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useCart } from "../../contexts/CartContext";
 
 export default function Cart() {
-  const { cart, removeFromCart, updateQuantity } = useCart();
+  const { cart, removeFromCart, updateQuantity, user } = useCart();
 
   return (
     <div className="bg-yellow-50 min-h-screen">
@@ -70,9 +70,40 @@ export default function Cart() {
                 </div>
               </div>
             ))}
+            <div className="flex justify-end items-center bg-white p-4 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-bold">Total:</h3>
+              <p className="text-2xl text-gray-800 ml-4">
+                {cart
+                  .reduce(
+                    (total, product) =>
+                      total + product.price * product.quantity,
+                    0
+                  )
+                  .toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+              </p>
+            </div>
             <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium self-center mt-6">
               Finalizar Pedido
             </button>
+            {user && (
+              <div className="flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">Usuário:</h3>
+                  <p className="text-2xl text-gray-800">{user.name}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">Telefone:</h3>
+                  <p className="text-2xl text-gray-800">{user.phone}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">Endereço de Entrega:</h3>
+                  <p className="text-2xl text-gray-800">{user.address}</p>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </section>
