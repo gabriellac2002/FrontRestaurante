@@ -32,7 +32,7 @@ export default function ProductCard({ product }: { product: Product }) {
           className="mt-4 rounded-lg py-3"
           onClick={() => window.location.href = `/product/${product.id}`}
         >
-          Comprar
+          Ver detalhes
         </Button>
       </div>
     </div>

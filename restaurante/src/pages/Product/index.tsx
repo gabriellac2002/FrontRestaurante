@@ -43,7 +43,7 @@ export default function ProductPage() {
                 {product.description}
               </p>
               <p className="text-3xl font-bold text-yellow-600 mb-6">
-                {product.price}
+                {product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </p>
               <button className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium">
                 Comprar

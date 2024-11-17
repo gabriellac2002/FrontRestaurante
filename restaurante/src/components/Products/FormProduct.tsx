@@ -95,6 +95,30 @@ const FormProduct: React.FC<FormProductProps> = ({
           />
         </div>
 
+        <div>
+            <label
+                htmlFor="image"
+                className="block text-sm font-medium text-gray-700 mb-1"
+            >
+                Imagem:
+            </label>
+            <Input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={(event) => {
+                    const file = event.currentTarget.files?.[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            form.setFieldValue("image", reader.result as string);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }}
+            />
+        </div>
+
         <div className="w-full flex gap-2 items-end justify-end mt-auto">
           <Button
             type="submit"
