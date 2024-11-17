@@ -17,3 +17,13 @@ export const createOrder = async (userId: string, products: { productId: string,
         throw error;
     }
 };
+
+export const getOrders = async () => {
+    try {
+        const response = await axios.get(`${ORDER_URL}/`);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting orders:", error);
+        throw error;
+    }
+};

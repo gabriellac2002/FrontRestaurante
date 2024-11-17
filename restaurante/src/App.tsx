@@ -9,6 +9,7 @@ import { CartProvider } from "./contexts/CartContext";
 import Cart from "./pages/Cart";
 import Register from "./pages/SingUp";
 import Login from "./pages/SingIn";
+import OrderForAdmin from "./pages/Orders/OrderForAdmin";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/singUp" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/pedidos" element={<OrderForAdmin />} />
         </Routes>
       </MantineProvider>
     </CartProvider>

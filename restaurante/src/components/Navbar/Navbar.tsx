@@ -70,6 +70,11 @@ export default function Navbar() {
                 Carrinho
               </Link>
             </li>
+            <li>
+              <Link to="/pedidos" className="text-white hover:text-yellow-300">
+                Pedidos
+              </Link>
+            </li>
             {!user && (
               <>
                 <li>
