@@ -2,6 +2,7 @@ import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { useCart } from "../../contexts/CartContext";
 import { createOrder } from "../../../services/Order/index";
+import { MdFastfood } from "react-icons/md";
 
 export default function Cart() {
   const { cart, removeFromCart, updateQuantity, user } = useCart();
@@ -50,11 +51,17 @@ export default function Cart() {
                 key={product.id}
                 className="flex items-center bg-white p-4 rounded-lg shadow-lg"
               >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-24 h-24 rounded-lg shadow-lg"
-                />
+                {product.image ? (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-24 h-24 rounded-lg shadow-lg"
+                  />
+                ) : (
+                  <div className="w-24 h-24 flex items-center justify-center bg-gray-200 rounded-lg shadow-lg">
+                    <MdFastfood />
+                  </div>
+                )}
                 <div className="ml-4 flex-1">
                   <h3 className="text-2xl font-bold">{product.name}</h3>
                   <p className="text-lg text-gray-600">
@@ -109,7 +116,10 @@ export default function Cart() {
                   })}
               </p>
             </div>
-            <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium self-center mt-6" onClick={handleCreateOrder}>
+            <button
+              className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium self-center mt-6"
+              onClick={handleCreateOrder}
+            >
               Finalizar Pedido
             </button>
             {user && (

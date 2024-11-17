@@ -15,6 +15,7 @@ export type User = {
   address: string;
   phone: string;
   createdAt: string;
+  isAdmin: boolean;
 };
 
 export type Order = {

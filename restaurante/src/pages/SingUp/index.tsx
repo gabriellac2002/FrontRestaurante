@@ -1,10 +1,9 @@
-import { TextInput, Button, Container, Paper } from "@mantine/core";
+import { TextInput, Button, Container, Paper, Checkbox } from "@mantine/core";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { useForm } from "@mantine/form";
 import { User } from "../../../Types/types";
 import { register } from "../../../services/Auth/index";
-
 
 export default function Register() {
   const form = useForm<User>({
@@ -15,6 +14,7 @@ export default function Register() {
       phone: "",
       address: "",
       createdAt: "",
+      isAdmin: false,
     },
 
     validate: {
@@ -68,6 +68,11 @@ export default function Register() {
               placeholder="Seu endereço"
               {...form.getInputProps("address")}
               required
+              mt="md"
+            />
+            <Checkbox
+              label="Administrador"
+              {...form.getInputProps("isAdmin", { type: "checkbox" })}
               mt="md"
             />
             <Button type="submit" fullWidth mt="xl">

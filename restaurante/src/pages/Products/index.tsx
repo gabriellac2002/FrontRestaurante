@@ -2,12 +2,16 @@ import { Table, Button, Drawer, Modal } from "@mantine/core";
 import Navbar from "../../components/Navbar/Navbar";
 import { Product } from "../../../Types/types";
 import { useEffect, useState } from "react";
-import { createProduct, deleteProduct, getAllProducts, updateProduct } from "../../../services/Products";
+import {
+  createProduct,
+  deleteProduct,
+  getAllProducts,
+  updateProduct,
+} from "../../../services/Products";
 import { MdDelete, MdEdit } from "react-icons/md";
 import FormProduct from "../../components/Products/FormProduct";
 import { useDisclosure } from "@mantine/hooks";
 import { IoAddSharp } from "react-icons/io5";
-
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -71,26 +75,30 @@ export default function Products() {
       });
   };
 
-  const handleCreate = (newProduct: Product) => {   
-    createProduct(newProduct).then((product) => {
-      setProducts((prevProducts) => [...prevProducts, product]);
-      closeCreate();
-    }).catch((error) => {
+  const handleCreate = (newProduct: Product) => {
+    createProduct(newProduct)
+      .then((product) => {
+        setProducts((prevProducts) => [...prevProducts, product]);
+        closeCreate();
+      })
+      .catch((error) => {
         console.error("Error creating product:", error);
         alert("Erro ao criar o produto");
-    });
+      });
   };
 
   const handleDelete = () => {
-    deleteProduct(product?.id || "").then(() => {
+    deleteProduct(product?.id || "")
+      .then(() => {
         setProducts((prevProducts) =>
           prevProducts.filter((element) => element.id !== product?.id)
         );
         closeModal();
-    }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error deleting product:", error);
         alert("Erro ao deletar o produto");
-    });
+      });
   };
 
   return (
@@ -113,20 +121,27 @@ export default function Products() {
           </Button>
         </div>
 
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <Table stickyHeader stickyHeaderOffset={60}>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Nome</Table.Th>
-                <Table.Th>Categoria</Table.Th>
-                <Table.Th>Preço</Table.Th>
-                <Table.Th>Editar</Table.Th>
-                <Table.Th>Apagar</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-          </Table>
-        </div>
+        {products && products.length > 0 && (
+          <div className="bg-white p-4 rounded-lg shadow-md">
+            <Table stickyHeader stickyHeaderOffset={60}>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Nome</Table.Th>
+                  <Table.Th>Categoria</Table.Th>
+                  <Table.Th>Preço</Table.Th>
+                  <Table.Th>Editar</Table.Th>
+                  <Table.Th>Apagar</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+          </div>
+        )}
+        {products.length === 0 ? (
+          <div className="text-center text-gray-500 mt-6">
+            Não há nenhum produto cadastrado ainda.
+          </div>
+        ) : null}
       </div>
 
       <Drawer

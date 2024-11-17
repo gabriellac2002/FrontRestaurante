@@ -9,9 +9,13 @@ import { SiIfood } from "react-icons/si";
 import { MdFastfood } from "react-icons/md";
 import { BiSolidHappyHeartEyes } from "react-icons/bi";
 import Opinions from "../../components/Products/Opinions";
+import { useCart } from "../../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
+  const { user } = useCart();
+  const isAdmin = user?.isAdmin;
 
   useEffect(() => {
     getAllProducts().then((products) => setProducts(products));
@@ -51,6 +55,19 @@ export default function Home() {
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+            {products.length === 0 && (
+              <div className="text-center col-span-full flex flex-col">
+                <p className="text-lg">Nenhum produto disponível no momento.</p>
+                {isAdmin && (
+                  <Link
+                    to="/products"
+                    className="mt-4 bg-red-600 px-6 py-3 rounded-lg text-white font-medium"
+                  >
+                    Cadastrar Produtos
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </section>
 

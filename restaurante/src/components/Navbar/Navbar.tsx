@@ -4,7 +4,7 @@ import { useCart } from "../../contexts/CartContext";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user } = useCart();
+  const { user, removeUser } = useCart();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -59,22 +59,32 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-            <li>
-              <Link to="/products" className="text-white hover:text-yellow-300">
-                Produtos
-              </Link>
-            </li>
+            {user && user.isAdmin && (
+              <li>
+                <Link
+                  to="/products"
+                  className="text-white hover:text-yellow-300"
+                >
+                  Produtos
+                </Link>
+              </li>
+            )}
 
             <li>
               <Link to="/cart" className="text-white hover:text-yellow-300">
                 Carrinho
               </Link>
             </li>
-            <li>
-              <Link to="/pedidos" className="text-white hover:text-yellow-300">
-                Pedidos
-              </Link>
-            </li>
+            {user && user.isAdmin && (
+              <li>
+                <Link
+                  to="/pedidos"
+                  className="text-white hover:text-yellow-300"
+                >
+                  Pedidos
+                </Link>
+              </li>
+            )}
             {!user && (
               <>
                 <li>
@@ -85,6 +95,7 @@ export default function Navbar() {
                     Login
                   </Link>
                 </li>
+
                 <li>
                   <Link
                     to="/singUp"
@@ -94,6 +105,19 @@ export default function Navbar() {
                   </Link>
                 </li>
               </>
+            )}
+            {user && (
+              <li>
+                <button
+                  onClick={() => {
+                    removeUser();
+                    window.location.href = "/";
+                  }}
+                  className="text-white hover:text-yellow-300"
+                >
+                  Sair
+                </button>
+              </li>
             )}
           </ul>
         </div>

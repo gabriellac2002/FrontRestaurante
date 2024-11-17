@@ -8,6 +8,7 @@ interface CartContextType {
   addUser: (user: User) => void;
   user?: User;
   updateQuantity: (productId: string, quantity: number) => void;
+  removeUser: () => void;
 }
 
 interface CartItem extends Product {
@@ -64,11 +65,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
+  const removeUser = () => {
+    setUser(undefined);
+    localStorage.removeItem("user");
+  };
+
   console.log("usuario logado", user);
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, addUser, user, updateQuantity }}
+      value={{ cart, addToCart, removeFromCart, addUser, user, updateQuantity, removeUser }}
     >
       {children}
     </CartContext.Provider>
