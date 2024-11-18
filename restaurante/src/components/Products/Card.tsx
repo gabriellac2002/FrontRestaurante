@@ -2,13 +2,15 @@ import { Badge, Button, Image, Text } from "@mantine/core";
 import { Product } from "../../../Types/types";
 import { MdFastfood } from "react-icons/md";
 
+
 export default function ProductCard({ product }: { product: Product }) {
+
   return (
     <div className="max-w-sm rounded-lg shadow-md bg-white border border-gray-200 overflow-hidden">
       <div className="relative">
         {product.image ? (
           <Image
-            src={product.image}
+            src={"http://localhost:3000/uploads/" + product.image}
             alt={product.name}
             className="w-full h-48 object-cover"
           />

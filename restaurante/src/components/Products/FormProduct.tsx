@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from "@mantine/core";
+import { Button, FileInput, Input, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React from "react";
 import { Product } from "../../../Types/types";
@@ -23,7 +23,7 @@ const FormProduct: React.FC<FormProductProps> = ({
       price: 0,
       description: "",
       category: "",
-      image: "",
+      image: new File([], ""),
       createdAt: new Date().toISOString(),
     },
 
@@ -50,6 +50,7 @@ const FormProduct: React.FC<FormProductProps> = ({
           </label>
           <Input
             id="name"
+
             placeholder="Digite o nome do produto"
             {...form.getInputProps("name")}
           />
@@ -82,41 +83,22 @@ const FormProduct: React.FC<FormProductProps> = ({
           />
         </div>
         <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Descrição:
-          </label>
           <Textarea
             id="description"
+            label="Descrição:"
             placeholder="Digite uma breve descrição do produto"
             {...form.getInputProps("description")}
           />
         </div>
 
         <div>
-            <label
-                htmlFor="image"
-                className="block text-sm font-medium text-gray-700 mb-1"
-            >
-                Imagem:
-            </label>
-            <Input
-                id="image"
-                type="file"
-                accept="image/*"
-                onChange={(event) => {
-                    const file = event.currentTarget.files?.[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                            form.setFieldValue("image", reader.result as string);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                }}
-            />
+          <FileInput
+            label="Imagem:"
+            placeholder="Escolha uma imagem"
+            {...form.getInputProps("image")}
+            required
+            mt="md"
+          />
         </div>
 
         <div className="w-full flex gap-2 items-end justify-end mt-auto">

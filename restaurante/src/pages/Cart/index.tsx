@@ -53,7 +53,7 @@ export default function Cart() {
               >
                 {product.image ? (
                   <img
-                    src={product.image}
+                    src={"http://localhost:3000/uploads/" + product.image}
                     alt={product.name}
                     className="w-24 h-24 rounded-lg shadow-lg"
                   />

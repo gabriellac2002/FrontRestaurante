@@ -35,7 +35,7 @@ export default function ProductPage() {
             <div className="flex-shrink-0 w-full lg:w-1/2">
               {product.image ? (
                 <img
-                  src={product.image}
+                  src={"http://localhost:3000/uploads/" + product.image}
                   alt={product.name}
                   className="rounded-lg shadow-lg"
                 />
