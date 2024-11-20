@@ -28,7 +28,7 @@ export const updateProduct = async (product: Product) => {
   const formData = new FormData();
   formData.append("file", product.image as File);
   formData.append("name", product.name);
-  formData.append("price", product.price);
+  formData.append("price", product.price.toString());
   formData.append("category", product.category);
   formData.append("description", product.description);
   formData.append("createdAt", product.createdAt);
@@ -59,7 +59,7 @@ export const createProduct = async (product: Product) => {
   const formData = new FormData();
   formData.append("file", product.image as File);
   formData.append("name", product.name);
-  formData.append("price", product.price);
+  formData.append("price", product.price.toString());
   formData.append("category", product.category);
   formData.append("description", product.description);
   formData.append("createdAt", product.createdAt);
