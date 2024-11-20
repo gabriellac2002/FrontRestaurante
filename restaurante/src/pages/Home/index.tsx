@@ -21,6 +21,8 @@ export default function Home() {
     getAllProducts().then((products) => setProducts(products));
   }, []);
 
+  console.log(products);
+
   const opinionsData = [
     {
       opinion: "A melhor comida da cidade! Recomendo a todos.",
@@ -52,7 +54,7 @@ export default function Home() {
         <section className="container mx-auto py-10 px-3">
           <h2 className="text-3xl font-bold text-center mb-6">Menu</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => (
+            {products.length > 0 && products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
             {products.length === 0 && (

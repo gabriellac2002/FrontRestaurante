@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://192.168.2.101:3000",
+        target: "https://restaurante-omega-pearl.vercel.app/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
