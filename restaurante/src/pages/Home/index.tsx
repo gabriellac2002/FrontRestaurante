@@ -4,7 +4,7 @@ import { getAllProducts } from "../../../services/Products";
 import ProductCard from "../../components/Products/Card";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { Card, Pagination, Text } from "@mantine/core";
+import { Badge, Card, Pagination, Text } from "@mantine/core";
 import { SiIfood } from "react-icons/si";
 import { MdFastfood } from "react-icons/md";
 import { BiSolidHappyHeartEyes } from "react-icons/bi";
@@ -12,19 +12,24 @@ import Opinions from "../../components/Products/Opinions";
 import { useCart } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 9;
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const { user } = useCart();
   const isAdmin = user?.isAdmin;
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getAllProducts().then((products) => setProducts(products));
   }, []);
 
-  const paginatedProducts = products.slice(
+  const filteredProducts = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
+
+  const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
@@ -32,6 +37,13 @@ export default function Home() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
+  const categories = [...new Set(products.map((product) => product.category))];
 
   const opinionsData = [
     {
@@ -63,6 +75,27 @@ export default function Home() {
 
         <section className="container mx-auto py-10 px-3">
           <h2 className="text-3xl font-bold text-center mb-6">Menu</h2>
+          <div className="flex justify-center mb-6">
+            {categories.map((category) => (
+              <Badge
+                key={category}
+                color={selectedCategory === category ? "red" : "yellow"}
+                onClick={() => handleCategoryClick(category)}
+                className="cursor-pointer mx-2"
+              >
+                {category}
+              </Badge>
+            ))}
+            {selectedCategory && (
+              <Badge
+                color="red"
+                onClick={() => handleCategoryClick("")}
+                className="cursor-pointer mx-2"
+              >
+                Limpar Filtro
+              </Badge>
+            )}
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {paginatedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -82,12 +115,14 @@ export default function Home() {
               </div>
             )}
           </div>
-          <Pagination
-            total={Math.ceil(products.length / PAGE_SIZE)}
-            value={currentPage}
-            onChange={handlePageChange}
-            className="mt-6"
-          />
+          <div className="flex justify-center items-center">
+            <Pagination
+              total={Math.ceil(products.length / PAGE_SIZE)}
+              value={currentPage}
+              onChange={handlePageChange}
+              className="mt-6"
+            />
+          </div>
         </section>
 
         <section className="bg-yellow-100 py-10 px-3">
