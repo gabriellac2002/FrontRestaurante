@@ -1,4 +1,4 @@
-import { Table, Button, Drawer, Modal } from "@mantine/core";
+import { Table, Button, Drawer, Modal, Pagination } from "@mantine/core";
 import Navbar from "../../components/Navbar/Navbar";
 import { Product } from "../../../Types/types";
 import { useEffect, useState } from "react";
@@ -13,9 +13,12 @@ import FormProduct from "../../components/Products/FormProduct";
 import { useDisclosure } from "@mantine/hooks";
 import { IoAddSharp } from "react-icons/io5";
 
+const PAGE_SIZE = 10;
+
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [product, setProduct] = useState<Product>();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [opened, { open, close }] = useDisclosure(false);
   const [openedCreate, { open: openCreate, close: closeCreate }] =
@@ -27,7 +30,16 @@ export default function Products() {
     getAllProducts().then((products) => setProducts(products));
   }, []);
 
-  const rows = products.map((element) => (
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const rows = paginatedProducts.map((element) => (
     <Table.Tr key={element.name}>
       <Table.Td>{element.name}</Table.Td>
       <Table.Td>{element.category}</Table.Td>
@@ -135,6 +147,12 @@ export default function Products() {
               </Table.Thead>
               <Table.Tbody>{rows}</Table.Tbody>
             </Table>
+            <Pagination
+              total={Math.ceil(products.length / PAGE_SIZE)}
+              value={currentPage}
+              onChange={handlePageChange}
+              className="mt-4"
+            />
           </div>
         )}
         {products.length === 0 ? (
