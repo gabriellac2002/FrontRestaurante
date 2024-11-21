@@ -68,12 +68,6 @@ export default function Home() {
               <ProductCard key={product.id} product={product} />
             ))}
 
-            <Pagination
-              total={Math.ceil(products.length / PAGE_SIZE)}
-              value={currentPage}
-              onChange={handlePageChange}
-              className="mt-6"
-            />
             {products.length === 0 && (
               <div className="text-center col-span-full flex flex-col">
                 <p className="text-lg">Nenhum produto disponível no momento.</p>
@@ -88,6 +82,12 @@ export default function Home() {
               </div>
             )}
           </div>
+          <Pagination
+            total={Math.ceil(products.length / PAGE_SIZE)}
+            value={currentPage}
+            onChange={handlePageChange}
+            className="mt-6"
+          />
         </section>
 
         <section className="bg-yellow-100 py-10 px-3">
