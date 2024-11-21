@@ -48,3 +48,11 @@ Certifique-se de ter os seguintes softwares instalados em sua máquina:
 - `public/`: Contém os arquivos públicos.
 - `node_modules/`: Contém as dependências do projeto.
 
+### Limitações do Site Hospedado
+
+O projeto FrontRestaurante está hospedado na Vercel e pode ser acessado através do seguinte link:
+
+[FrontRestaurante - Site Hospedado](https://front-restaurante-delta.vercel.app/)
+
+**Nota:** No site hospedado, não é possível fazer upload de imagens porque a Vercel não permite o armazenamento de imagens, pois é um serviço de hospedagem de front-end. No entanto, se você instalar o projeto localmente e configurar um banco de dados local, o upload de imagens funcionará corretamente.
+
