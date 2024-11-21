@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getOrders } from "../../../services/Order/index";
-import { Table, Title } from "@mantine/core";
+import { Badge, Flex, Title } from "@mantine/core";
 import { Order } from "../../../Types/types";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -25,42 +25,56 @@ const OrderForAdmin: React.FC = () => {
           Todos os pedidos
         </Title>
 
-        <div className="p-2">
-            {orders.length > 0 ? (
-            <Table
-              striped
-              highlightOnHover
-              withColumnBorders
-              className="bg-orange-100 rounded-lg "
-            >
-              <Table.Thead>
-              <Table.Tr>
-                <Table.Th className="text-yellow-600">Pedido</Table.Th>
-                <Table.Th className="text-yellow-600">Cliente</Table.Th>
-                <Table.Th className="text-yellow-600">Produtos</Table.Th>
-                <Table.Th className="text-yellow-600">Preço total</Table.Th>
-                <Table.Th className="text-yellow-600">Status</Table.Th>
-              </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>
+        <div className="p-4 flex justify-center">
+          {orders.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
               {orders.map((order) => (
-                <Table.Tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{order.userId}</td>
-                <td>
-                  {order.products
-                  .map((item) => `${item.name} (${item.quantity})`)
-                  .join(", ")}
-                </td>
-                <td>${order.totalPrice.toFixed(2)}</td>
-                <td>{order.status}</td>
-                </Table.Tr>
+                <div
+                  key={order.id}
+                  className="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 w-full transition-all duration-300 ease-in-out"
+                >
+                  <h3 className="text-xl font-semibold text-yellow-600 mb-2">
+                    Pedido #{order.id}
+                  </h3>
+                  <p className="text-gray-800 font-medium">
+                    Cliente: {order.userId}
+                  </p>
+                  <p className="text-gray-700 mt-1">
+                    Produtos:{" "}
+                    {order.products
+                      .map((item) => `${item.name} (${item.quantity})`)
+                      .join(", ")}
+                  </p>
+
+                  <Flex justify="space-around" className="mt-2 w-full items-center">
+                    <p className="text-gray-700 mt-1">
+                      <span className="font-semibold">
+                        ${order.totalPrice.toFixed(2)}
+                      </span>
+                    </p>
+
+                    <Badge
+                      color={
+                        order.status === "completed"
+                          ? "green"
+                          : order.status === "pending"
+                          ? "yellow"
+                          : "red"
+                      }
+                      variant="filled"
+                      className="mt-2"
+                    >
+                      {order.status}
+                    </Badge>
+                  </Flex>
+                </div>
               ))}
-              </Table.Tbody>
-            </Table>
-            ) : (
-            <p className="text-center text-yellow-600">Não há pedidos ainda.</p>
-            )}
+            </div>
+          ) : (
+            <p className="text-center text-lg text-yellow-600 font-medium">
+              Não há pedidos ainda.
+            </p>
+          )}
         </div>
       </div>
       <Footer />
