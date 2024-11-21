@@ -4,7 +4,7 @@ import { getAllProducts } from "../../../services/Products";
 import ProductCard from "../../components/Products/Card";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { Card, Text } from "@mantine/core";
+import { Card, Pagination, Text } from "@mantine/core";
 import { SiIfood } from "react-icons/si";
 import { MdFastfood } from "react-icons/md";
 import { BiSolidHappyHeartEyes } from "react-icons/bi";
@@ -12,16 +12,26 @@ import Opinions from "../../components/Products/Opinions";
 import { useCart } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
+const PAGE_SIZE = 10;
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const { user } = useCart();
   const isAdmin = user?.isAdmin;
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getAllProducts().then((products) => setProducts(products));
   }, []);
 
-  console.log(products);
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const opinionsData = [
     {
@@ -54,9 +64,16 @@ export default function Home() {
         <section className="container mx-auto py-10 px-3">
           <h2 className="text-3xl font-bold text-center mb-6">Menu</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.length > 0 && products.map((product) => (
+            {paginatedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+
+            <Pagination
+              total={Math.ceil(products.length / PAGE_SIZE)}
+              value={currentPage}
+              onChange={handlePageChange}
+              className="mt-6"
+            />
             {products.length === 0 && (
               <div className="text-center col-span-full flex flex-col">
                 <p className="text-lg">Nenhum produto disponível no momento.</p>
