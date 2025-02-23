@@ -27,7 +27,7 @@ const OrderForAdmin: React.FC = () => {
 
         <div className="p-4 flex justify-center">
           {orders.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
               {orders.map((order) => (
                 <div
                   key={order.id}
@@ -40,13 +40,17 @@ const OrderForAdmin: React.FC = () => {
                     Cliente: {order.userId}
                   </p>
                   <p className="text-gray-700 mt-1">
-                    Produtos:{" "}
-                    {order.products
-                      .map((item) => `${item.name} (${item.quantity})`)
-                      .join(", ")}
+                    {order.products.map((item) => (
+                      <span key={item.name} className="block">
+                        {item.name} ({item.quantity})
+                      </span>
+                    ))}
                   </p>
 
-                  <Flex justify="space-around" className="mt-2 w-full items-center">
+                  <Flex
+                    justify="space-around"
+                    className="mt-2 w-full items-center"
+                  >
                     <p className="text-gray-700 mt-1">
                       <span className="font-semibold">
                         ${order.totalPrice.toFixed(2)}
