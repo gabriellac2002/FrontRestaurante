@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
+import { ActionIcon } from "@mantine/core";
+import { MdFastfood, MdHome, MdLogin } from "react-icons/md";
+import { FaClipboardList, FaUserCircle } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
+import { FaCartShopping } from "react-icons/fa6";
+import { Tooltip } from "@mantine/core";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,14 +20,7 @@ export default function Navbar() {
     <nav className="bg-yellow-500 dark:bg-yellow-600 shadow-lg">
       <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex flex-row items-center gap-1">
-          <img
-            src="../../assets/logo.png"
-            className="h-14 w-14"
-            alt="Falaê Delivery"
-          />
-          <span className="self-center text-3xl font-bold text-white">
-            Falaê Delivery
-          </span>
+          <img src="../../Logo.png" className="w-24" alt="Falaê Delivery" />
         </div>
 
         <button
@@ -55,68 +54,82 @@ export default function Navbar() {
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-yellow-100 rounded-lg bg-yellow-500 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
             <li>
-              <Link to="/" className="text-white hover:text-yellow-300">
-                Home
-              </Link>
+              <Tooltip label="Home" withArrow>
+                <Link to="/" title="Home">
+                  <ActionIcon size="lg" variant="transparent" color="white">
+                    <MdHome size={24} />
+                  </ActionIcon>
+                </Link>
+              </Tooltip>
             </li>
             {user && user.isAdmin && (
               <li>
-                <Link
-                  to="/products"
-                  className="text-white hover:text-yellow-300"
-                >
-                  Produtos
-                </Link>
+                <Tooltip label="Produtos" withArrow>
+                  <Link to="/products">
+                    <ActionIcon size="lg" variant="transparent" color="white">
+                      <MdFastfood size={24} />
+                    </ActionIcon>
+                  </Link>
+                </Tooltip>
               </li>
             )}
-
             <li>
-              <Link to="/cart" className="text-white hover:text-yellow-300">
-                Carrinho
-              </Link>
+              <Tooltip label="Carrinho" withArrow>
+                <Link to="/cart">
+                  <ActionIcon size="lg" variant="transparent" color="white">
+                    <FaCartShopping size={24} />
+                  </ActionIcon>
+                </Link>
+              </Tooltip>
             </li>
             {user && user.isAdmin && (
               <li>
-                <Link
-                  to="/pedidos"
-                  className="text-white hover:text-yellow-300"
-                >
-                  Pedidos
-                </Link>
+                <Tooltip label="Pedidos" withArrow>
+                  <Link to="/pedidos">
+                    <ActionIcon size="lg" variant="transparent" color="white">
+                      <FaClipboardList size={24} />
+                    </ActionIcon>
+                  </Link>
+                </Tooltip>
               </li>
             )}
             {!user && (
               <>
                 <li>
-                  <Link
-                    to="/login"
-                    className="text-white hover:text-yellow-300"
-                  >
-                    Login
-                  </Link>
+                  <Tooltip label="Cadastrar" withArrow>
+                    <Link to="/singUp">
+                      <ActionIcon size="lg" variant="transparent" color="white">
+                        <FaUserCircle size={24} />
+                      </ActionIcon>
+                    </Link>
+                  </Tooltip>
                 </li>
-
                 <li>
-                  <Link
-                    to="/singUp"
-                    className="text-white hover:text-yellow-300"
-                  >
-                    Cadastrar
-                  </Link>
+                  <Tooltip label="Login" withArrow>
+                    <Link to="/login">
+                      <ActionIcon size="lg" variant="transparent" color="white">
+                        <MdLogin size={24} />
+                      </ActionIcon>
+                    </Link>
+                  </Tooltip>
                 </li>
               </>
             )}
             {user && (
               <li>
-                <button
-                  onClick={() => {
-                    removeUser();
-                    window.location.href = "/";
-                  }}
-                  className="text-white hover:text-yellow-300"
-                >
-                  Sair
-                </button>
+                <Tooltip label="Sair" withArrow>
+                  <ActionIcon
+                    size="lg"
+                    variant="transparent"
+                    color="white"
+                    onClick={() => {
+                      removeUser();
+                      window.location.href = "/";
+                    }}
+                  >
+                    <CiLogout size={24} />
+                  </ActionIcon>
+                </Tooltip>
               </li>
             )}
           </ul>
