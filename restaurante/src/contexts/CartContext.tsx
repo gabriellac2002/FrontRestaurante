@@ -1,4 +1,10 @@
-import { createContext, useState, useContext, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import { Product, User } from "../../Types/types";
 
 interface CartContextType {
@@ -70,11 +76,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("user");
   };
 
-  console.log("usuario logado", user);
-
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, addUser, user, updateQuantity, removeUser }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        addUser,
+        user,
+        updateQuantity,
+        removeUser,
+      }}
     >
       {children}
     </CartContext.Provider>

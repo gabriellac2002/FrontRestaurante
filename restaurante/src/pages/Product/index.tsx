@@ -5,6 +5,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { useCart } from "../../contexts/CartContext";
 import { MdFastfood } from "react-icons/md";
+import { Paper } from "@mantine/core";
+import { toast } from "react-toastify";
 
 export default function ProductPage() {
   const productId = window.location.pathname.split("/").pop();
@@ -28,19 +30,19 @@ export default function ProductPage() {
 
   return (
     <div>
-      <div className="bg-yellow-50">
+      <div className="bg-yellow-50 min-h-screen">
         <Navbar />
-        <section className="container mx-auto py-10 px-3 min-h-screen">
-          <div className="flex flex-col lg:flex-row gap-10 items-center">
+        <section className="container mx-auto py-10 px-3 h-auto sm:h-screen flex flex-col justify-center">
+          <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-shrink-0 w-full lg:w-1/2">
               {product.image ? (
                 <img
                   src={"http://localhost:3000/uploads/" + product.image}
                   alt={product.name}
-                  className="rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg w-full h-auto"
                 />
               ) : (
-                <div className="rounded-full bg-gray-200 w-48 h-48 flex items-center justify-center">
+                <div className="rounded-full bg-gray-200 w-48 h-48 flex items-center justify-center mx-auto lg:mx-0">
                   <span className="text-gray-500 text-6xl">
                     <MdFastfood />
                   </span>
@@ -48,28 +50,32 @@ export default function ProductPage() {
               )}
             </div>
 
-            <div className="w-full lg:w-1/2 text-gray-800">
-              <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-              <p className="text-lg text-gray-600 mb-6">
+            <Paper className="w-full lg:w-1/2 text-gray-800 p-6 sm:p-10 rounded-lg shadow-md bg-white">
+              <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl sm:text-4xl font-bold">
+                  {product.name}
+                </h1>
+                <p className="text-xl sm:text-3xl font-bold text-yellow-600">
+                  {product.price.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </p>
+              </div>
+              <p className="text-base sm:text-lg text-gray-600 mb-6">
                 {product.description}
               </p>
-              <p className="text-3xl font-bold text-yellow-600 mb-6">
-                {product.price.toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
-              </p>
+
               <button
-                className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium"
+                className="bg-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition duration-300 ease-in-out hover:bg-red-700"
                 onClick={() => {
                   addToCart(product);
-                  alert(`${product.name} foi adicionado ao carrinho!`);
-                  window.location.href = "/cart";
+                  toast.success(`${product.name} foi adicionado ao carrinho!`);
                 }}
               >
                 Comprar
               </button>
-            </div>
+            </Paper>
           </div>
         </section>
 

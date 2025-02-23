@@ -39,8 +39,11 @@ const FormProduct: React.FC<FormProductProps> = ({
   };
 
   return (
-    <div>
-      <form onSubmit={form.onSubmit(handleSubmit)} className="space-y-4">
+    <div className="w-full">
+      <form
+        onSubmit={form.onSubmit(handleSubmit)}
+        className="space-y-4flex flex-col "
+      >
         <div>
           <label
             htmlFor="name"
@@ -50,7 +53,6 @@ const FormProduct: React.FC<FormProductProps> = ({
           </label>
           <Input
             id="name"
-
             placeholder="Digite o nome do produto"
             {...form.getInputProps("name")}
           />
@@ -101,7 +103,7 @@ const FormProduct: React.FC<FormProductProps> = ({
           />
         </div>
 
-        <div className="w-full flex gap-2 items-end justify-end mt-auto">
+        <div className="w-full flex gap-2 items-end justify-end  absolute bottom-0 left-0 p-4">
           <Button
             type="submit"
             size="md"
