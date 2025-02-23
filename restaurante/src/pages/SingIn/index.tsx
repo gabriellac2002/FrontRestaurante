@@ -42,9 +42,19 @@ export default function Login() {
   return (
     <div className="bg-yellow-50 min-h-screen">
       <Navbar />
-      <Container size="sm" className="py-10 h-full">
+      <Container
+        size="sm"
+        className="h-[70vh] flex flex-col items-center justify-center"
+      >
         <Title className="mb-8 text-center">Login</Title>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <Paper
+          withBorder
+          shadow="md"
+          p={30}
+          mt={30}
+          radius="md"
+          className="w-full"
+        >
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <TextInput
               label="Email"
