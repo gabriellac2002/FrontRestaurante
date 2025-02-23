@@ -21,6 +21,8 @@ export type User = {
 export type Order = {
   id: string;
   userId: string;
+  userName: string;
+  userAdress: string;
   totalPrice: number;
   status: "pending" | "completed" | "cancelled";
   createdAt: string;

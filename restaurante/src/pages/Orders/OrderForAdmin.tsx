@@ -17,6 +17,8 @@ const OrderForAdmin: React.FC = () => {
     fetchOrders();
   }, []);
 
+  console.log(orders);
+
   return (
     <>
       <Navbar />
@@ -34,17 +36,20 @@ const OrderForAdmin: React.FC = () => {
                   className="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 w-full transition-all duration-300 ease-in-out"
                 >
                   <h3 className="text-xl font-semibold text-yellow-600 mb-2">
-                    Pedido #{order.id}
+                    {order.userName}
                   </h3>
-                  <p className="text-gray-800 font-medium">
-                    Cliente: {order.userId}
-                  </p>
+
                   <p className="text-gray-700 mt-1">
                     {order.products.map((item) => (
                       <span key={item.name} className="block">
                         {item.name} ({item.quantity})
                       </span>
                     ))}
+                  </p>
+
+                  <p className="text-gray-700 mt-2">
+                    <span className="font-semibold">Endereço:</span>{" "}
+                    {order.userAdress}
                   </p>
 
                   <Flex
