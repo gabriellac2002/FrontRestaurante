@@ -38,7 +38,7 @@ export default function Register() {
   return (
     <div className="bg-yellow-50 min-h-screen">
       <Navbar />
-      <Container size="sm" className="py-10">
+      <Container size="sm" className="h-[70vh] flex flex-col justify-center">
         <h1 className="text-2xl font-bold text-center mb-8">
           Cadastro de Usuário
         </h1>
