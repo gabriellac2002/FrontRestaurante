@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import "@mantine/core/styles.css";
+import { ToastContainer } from "react-toastify";
 
 import { MantineProvider } from "@mantine/core";
 import ProductPage from "./pages/Product";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/pedidos" element={<OrderForAdmin />} />
         </Routes>
+        <ToastContainer />
       </MantineProvider>
     </CartProvider>
   );

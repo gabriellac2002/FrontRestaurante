@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import { login } from "../../../services/Auth";
 import { useCart } from "../../contexts/CartContext";
 import { User } from "../../../Types/types";
+import { toast } from "react-toastify";
 
 export default function Login() {
   type FormValues = {
@@ -24,18 +25,13 @@ export default function Login() {
     login(values.email)
       .then((response) => {
         const user = response.user as User;
-        console.log("User logged in:", user);
+
         addUser(user);
-        alert("Login realizado com sucesso!");
+        toast.success("Login realizado com sucesso!");
         window.location.href = "/";
       })
-      .catch((error) => {
-        console.error("Error logging in:", error);
-        alert(
-          `Erro ao realizar login: ${
-            error.response?.data?.message || error.message
-          }`
-        );
+      .catch(() => {
+        toast.error(`Erro ao realizar login`);
       });
   };
 

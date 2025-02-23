@@ -28,9 +28,7 @@ export default function Register() {
   });
 
   const handleSubmit = (values: User) => {
-    console.log(values);
     register(values).then(() => {
-      alert("Cadastro realizado com sucesso! Por favor, faça login.");
       window.location.href = "/login";
     });
   };
